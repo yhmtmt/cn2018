@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 {
   int i, j, k, l;
   FILE * f; // File to be compressed
-  char c, len_code, len_null, * data;
+  unsigned char c, len_code, len_null, * data;
   unsigned int len_bits, len_bytes, sz_org, sz_cmp, nhnodes;
   struct hnode leaf[NSYMBOLS], * htop[NSYMBOLS], * htmp;
   struct hcode code[NSYMBOLS];
@@ -64,6 +64,7 @@ int main(int argc, char **argv)
   //   Finally we get an unique root node htop[0]
   for(i = 1; i < NSYMBOLS; i++){
     htmp = (struct hnode*) malloc(sizeof(struct hnode));
+    htmp->u = NULL;
     htmp->p = htop[NSYMBOLS - i - 1];
     htmp->n = htop[NSYMBOLS - i];
     htmp->frq = htmp->p->frq + htmp->n->frq;
